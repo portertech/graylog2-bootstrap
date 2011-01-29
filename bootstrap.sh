@@ -6,16 +6,15 @@ graylog2_web_interface=graylog2-web-interface-0.9.4p2.tar.gz
 graylog2_base=/var/graylog2
 graylog2_collection_size=650000000
 
-export DEBIAN_FRONTEND=noninteractive
-
 sudo apt-get install python-software-properties
 sudo add-apt-repository 'deb http://downloads.mongodb.org/distros/ubuntu 10.4 10gen'
 sudo apt-key adv --keyserver keyserver.ubuntu.com --recv 7F0CEB10
 sudo apt-get update
 
+env='DEBIAN_FRONTEND=noninteractive'
 for pkg in wget build-essential make rrdtool openjdk-6-jre ruby1.8 rubygems rake libopenssl-ruby libmysqlclient-dev ruby-dev libapache2-mod-passenger postfix mongodb-stable mysql-server
 do
-  sudo apt-get install -y $pkg
+  sudo $env apt-get install -y $pkg
 done
 
 sudo mkdir -pv $graylog2_base/src $graylog2_base/rrd
@@ -61,8 +60,7 @@ sudo -u nobody rake db:migrate $env
 
 cd /etc/apache2
 
-sudo touch sites-available/graylog2
-sudo echo "
+echo "
 <VirtualHost *:80>
   DocumentRoot $graylog2_base/web/public
   <Directory $graylog2_base/web/public>
@@ -73,11 +71,13 @@ sudo echo "
   LogLevel warn
   CustomLog /var/log/apache2/access.log combined
 </VirtualHost>
-" > sites-available/graylog2
+" | sudo tee -a sites-available/graylog2
 
 sudo a2ensite graylog2
+
 sudo sed -e "s/APACHE_RUN_USER=www-data/APACHE_RUN_USER=nobody/" -i envvars
 sudo sed -e "s/APACHE_RUN_GROUP=www-data/APACHE_RUN_GROUP=nogroup/" -i envvars
+
 sudo /etc/init.d/apache2 restart
 
 exit 0
