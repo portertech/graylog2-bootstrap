@@ -6,7 +6,7 @@ graylog2_web_interface=graylog2-web-interface-0.9.4p2.tar.gz
 graylog2_base=/var/graylog2
 graylog2_collection_size=650000000
 
-sudo apt-get install python-software-properties
+sudo apt-get install -y python-software-properties
 sudo add-apt-repository 'deb http://downloads.mongodb.org/distros/ubuntu 10.4 10gen'
 sudo apt-key adv --keyserver keyserver.ubuntu.com --recv 7F0CEB10
 sudo apt-get update
