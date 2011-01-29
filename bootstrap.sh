@@ -53,11 +53,10 @@ sudo sed -e "s/yourpass//" -i config/database.yml
 fqdn=`hostname --fqdn`
 sudo sed -e "s/your-graylog2.example.org/$fqdn/" -i config/general.yml
 
-export RAILS_ENV=production
-
 sudo chown -R nobody:nogroup $graylog2_base
 
-sudo -u nobody rake db:create
-sudo -u nobody rake db:migrate
+env='RAILS_ENV=production'
+sudo -u nobody rake db:create $env
+sudo -u nobody rake db:migrate $env
 
 exit 0
