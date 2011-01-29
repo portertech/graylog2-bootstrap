@@ -61,20 +61,19 @@ sudo -u nobody rake db:migrate $env
 
 cd /etc/apache2
 
-apache_vhost="
-  <VirtualHost *:80>\n
-    DocumentRoot $graylog2_base/web/public\n
-    <Directory $graylog2_base/web/public>\n
-        Allow from all\n
-        Options -MultiViews\n
-    </Directory>\n
-    ErrorLog /var/log/apache2/error.log\n
-    LogLevel warn\n
-    CustomLog /var/log/apache2/access.log combined\n
-</VirtualHost>\n
-"
+sudo echo "
+<VirtualHost *:80>
+  DocumentRoot $graylog2_base/web/public
+  <Directory $graylog2_base/web/public>
+    Allow from all
+    Options -MultiViews
+  </Directory>
+  ErrorLog /var/log/apache2/error.log
+  LogLevel warn
+  CustomLog /var/log/apache2/access.log combined
+</VirtualHost>
+" > sites-available/graylog2
 
-sudo echo $apache_vhost > sites-available/graylog2
 sudo a2ensite graylog2
 sudo sed -e "s/APACHE_RUN_USER=www-data/APACHE_RUN_USER=nobody/" -i envvars
 sudo sed -e "s/APACHE_RUN_GROUP=www-data/APACHE_RUN_GROUP=nogroup/" -i envvars
