@@ -17,7 +17,7 @@ do
   sudo $env apt-get install -y $pkg
 done
 
-sudo mkdir -pv $graylog2_base/src $graylog2_base/rrd
+sudo mkdir -pv $graylog2_base/src
 
 cd $graylog2_base/src
 
