@@ -61,6 +61,7 @@ sudo -u nobody rake db:migrate $env
 
 cd /etc/apache2
 
+sudo touch sites-available/graylog2
 sudo echo "
 <VirtualHost *:80>
   DocumentRoot $graylog2_base/web/public
