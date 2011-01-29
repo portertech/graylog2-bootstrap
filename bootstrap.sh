@@ -34,9 +34,9 @@ do
   folder=`echo $tar | sed 's/.tar.gz//; s!.*/!!'`
   if echo $folder | grep -q 'server'
   then
-    sudo mv $folder ../server
+    sudo mv -f $folder ../server
   else
-    sudo mv $folder ../web
+    sudo mv -f $folder ../web
   fi
 done
 
@@ -54,7 +54,7 @@ sudo bundle install
 for example in database.yml.example mongodb.yml.example general.yml.example
 do
   yml=`echo $example | sed 's/.example//; s!.*/!!'`
-  sudo mv config/$example config/$yml
+  sudo mv -f config/$example config/$yml
 done
 
 sudo sed -e 's/root/graylog2/g' -i config/database.yml
