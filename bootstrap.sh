@@ -11,7 +11,7 @@ sudo add-apt-repository 'deb http://downloads.mongodb.org/distros/ubuntu 10.4 10
 sudo apt-key adv --keyserver keyserver.ubuntu.com --recv 7F0CEB10
 sudo apt-get update
 
-for pkg in wget build-essential make rrdtool openjdk-6-jre ruby1.8 rubygems rubygems-update rake libopenssl-ruby libmysqlclient-dev ruby-dev libapache2-mod-passenger mongodb-stable mysql-server
+for pkg in wget build-essential make rrdtool openjdk-6-jre ruby1.8 rubygems rake libopenssl-ruby libmysqlclient-dev ruby-dev libapache2-mod-passenger mongodb-stable mysql-server
 do
   sudo apt-get install -y $pkg
 done
@@ -40,7 +40,8 @@ do
   fi
 done
 
-sudo update_rubygems
+sudo gem install rubygems-update
+sudo /var/lib/gems/1.8/bin/update_rubygems
 
 for gem in bundler bluepill
 do
