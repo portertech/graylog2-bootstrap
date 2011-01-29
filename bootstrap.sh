@@ -4,6 +4,8 @@ release_src=https://github.com/downloads/Graylog2
 graylog2_server=graylog2-server-0.9.4p1.tar.gz
 graylog2_web_interface=graylog2-web-interface-0.9.4p2.tar.gz
 
+export DEBIAN_FRONTEND=noninteractive
+
 sudo apt-get install python-software-properties
 sudo add-apt-repository 'deb http://downloads.mongodb.org/distros/ubuntu 10.4 10gen'
 sudo apt-key adv --keyserver keyserver.ubuntu.com --recv 7F0CEB10
@@ -23,14 +25,14 @@ cd /var/graylog2/src
 
 for remote_pkg in $release_src/graylog2-server/$graylog2_server $release_src/graylog2-web-interface/$graylog2_web_interface
 do
-  sudo wget $remote_pkg
+  sudo wget --no-check-certificate $remote_pkg
 done
 
 for tar in $graylog2_server $graylog2_web_interface
 do
   sudo tar -xvf $tar
   folder=`echo $tar | sed 's/.tar.gz//; s!.*/!!'`
-  if echo "$folder" | grep -q "server"
+  if echo $folder | grep -q 'server'
   then
     sudo mv $folder ../server
   else
