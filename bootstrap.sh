@@ -74,6 +74,7 @@ echo "
 " | sudo tee sites-available/graylog2
 
 sudo a2ensite graylog2
+sudo a2dissite default
 
 sudo sed -e "s/APACHE_RUN_USER=www-data/APACHE_RUN_USER=nobody/" -i envvars
 sudo sed -e "s/APACHE_RUN_GROUP=www-data/APACHE_RUN_GROUP=nogroup/" -i envvars
