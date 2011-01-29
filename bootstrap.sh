@@ -6,7 +6,7 @@ graylog2_web_interface=graylog2-web-interface-0.9.4p2.tar.gz
 
 sudo apt-get install python-software-properties
 sudo add-apt-repository 'deb http://downloads.mongodb.org/distros/ubuntu 10.4 10gen'
-apt-key adv --keyserver keyserver.ubuntu.com --recv 7F0CEB10
+sudo apt-key adv --keyserver keyserver.ubuntu.com --recv 7F0CEB10
 sudo apt-get update
 
 for pkg in wget build-essential rrdtool openjdk-6-jre ruby1.8 rubygems rake make libopenssl-ruby libmysqlclient-dev ruby-dev libapache2-mod-passenger mongodb-stable mysql-server
