@@ -39,8 +39,8 @@ sudo gem install bundler
 cd $graylog2_base/server
 
 sudo mv -f graylog2.conf.example graylog2.conf
-sudo sed -e "s/true/false/" -i graylog2.conf
-sudo sed -e "s/50000000/$graylog2_collection_size/" -i graylog2.conf
+sudo sed -e "s/mongodb_useauth = true/mongodb_useauth = false/" -i graylog2.conf
+sudo sed -e "s/messages_collection_size = 50000000/messages_collection_size = $graylog2_collection_size/" -i graylog2.conf
 sudo ln -sf $graylog2_base/server/graylog2.conf /etc/graylog2.conf
 
 cd bin && sudo ./graylog2ctl start
@@ -49,14 +49,35 @@ cd $graylog2_base/web
 
 sudo bundle install
 
-sudo sed -e "s/yourpass//" -i config/database.yml
+sudo sed -e "s/password: yourpass/password: /" -i config/database.yml
 fqdn=`hostname --fqdn`
-sudo sed -e "s/your-graylog2.example.org/$fqdn/" -i config/general.yml
+sudo sed -e "s/external_hostname: \"your-graylog2.example.org\"/external_hostname: \"$fqdn\"/" -i config/general.yml
 
 sudo chown -R nobody:nogroup $graylog2_base
 
 env='RAILS_ENV=production'
 sudo -u nobody rake db:create $env
 sudo -u nobody rake db:migrate $env
+
+cd /etc/apache2
+
+apache_vhost="
+  <VirtualHost *:80>\n
+    DocumentRoot $graylog2_base/web/public\n
+    <Directory $graylog2_base/web/public>\n
+        Allow from all\n
+        Options -MultiViews\n
+    </Directory>\n
+    ErrorLog /var/log/apache2/error.log\n
+    LogLevel warn\n
+    CustomLog /var/log/apache2/access.log combined\n
+</VirtualHost>\n
+"
+
+sudo echo $apache_vhost > sites-available/graylog2
+sudo a2ensite graylog2
+sudo sed -e "s/APACHE_RUN_USER=www-data/APACHE_RUN_USER=nobody/" -i envvars
+sudo sed -e "s/APACHE_RUN_GROUP=www-data/APACHE_RUN_GROUP=nogroup/" -i envvars
+sudo /etc/init.d/apache2 restart
 
 exit 0
