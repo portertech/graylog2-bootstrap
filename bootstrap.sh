@@ -57,7 +57,7 @@ export RAILS_ENV=production
 
 sudo chown -R nobody:nogroup $graylog2_base
 
-rake db:create
-rake db:migrate
+sudo -u nobody rake db:create
+sudo -u nobody rake db:migrate
 
 exit 0
