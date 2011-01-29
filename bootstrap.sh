@@ -71,7 +71,7 @@ echo "
   LogLevel warn
   CustomLog /var/log/apache2/access.log combined
 </VirtualHost>
-" | sudo tee -a sites-available/graylog2
+" | sudo tee sites-available/graylog2
 
 sudo a2ensite graylog2
 
