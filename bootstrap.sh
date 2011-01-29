@@ -39,8 +39,8 @@ sudo gem install bundler
 cd $graylog2_base/server
 
 sudo mv -f graylog2.conf.example graylog2.conf
-sudo sed -e "s/true/false/" -i graylog2.yml
-sudo sed -e "s/50000000/$graylog2_collection_size/" -i graylog2.yml
+sudo sed -e "s/true/false/" -i graylog2.conf
+sudo sed -e "s/50000000/$graylog2_collection_size/" -i graylog2.conf
 sudo ln -s $graylog2_base/server/graylog2.conf /etc/graylog2.conf
 
 cd bin/ && sudo ./graylog2ctl start
@@ -51,7 +51,7 @@ sudo bundle install
 
 sudo sed -e "s/yourpass//" -i config/database.yml
 fqdn=`hostname --fqdn`
-sudo sed -e "s/your-graylog2.example.org/$fqdn/g" -i config/general.yml
+sudo sed -e "s/your-graylog2.example.org/$fqdn/" -i config/general.yml
 
 export RAILS_ENV=production
 
