@@ -51,17 +51,10 @@ done
 cd ../web
 sudo bundle install
 
-for example in database.yml.example mongodb.yml.example general.yml.example
-do
-  yml=`echo $example | sed 's/.example//; s!.*/!!'`
-  sudo mv -f config/$example config/$yml
-done
-
-sudo sed -e 's/root/graylog2/g' -i config/database.yml
-sudo sed -e 's/yourpass/G4yl0g2p455wD/g' -i config/database.yml
-
 fqdn=`hostname --fqdn`
 
+sudo sed -e 's/root/graylog2/g' -i config/database.yml
+sudo sed -e 's/yourpass/Gr4yl0g2p455wD/g' -i config/database.yml
 sudo sed -e 's/your-graylog2.example.org/$fqdn/g' -i config/general.yml
 
 sudo chown -R nobody:nogroup /var/graylog2
