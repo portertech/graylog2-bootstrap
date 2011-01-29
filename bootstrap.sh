@@ -41,9 +41,9 @@ cd $graylog2_base/server
 sudo mv -f graylog2.conf.example graylog2.conf
 sudo sed -e "s/true/false/" -i graylog2.conf
 sudo sed -e "s/50000000/$graylog2_collection_size/" -i graylog2.conf
-sudo ln -s $graylog2_base/server/graylog2.conf /etc/graylog2.conf
+sudo ln -sf $graylog2_base/server/graylog2.conf /etc/graylog2.conf
 
-cd bin/ && sudo ./graylog2ctl start
+cd bin && sudo ./graylog2ctl start
 
 cd $graylog2_base/web
 
