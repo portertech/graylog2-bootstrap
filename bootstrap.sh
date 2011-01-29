@@ -52,6 +52,6 @@ sudo sed -e "s/root/graylog2/g" -i config/database.yml
 sudo sed -e "s/yourpass/Gr4yl0g2p455wD/g" -i config/database.yml
 sudo sed -e "s/your-graylog2.example.org/$fqdn/g" -i config/general.yml
 
-sudo chown -R nobody:nogroup /var/graylog2
+sudo chown -R nobody:nogroup $graylog2_base
 
 exit 0
