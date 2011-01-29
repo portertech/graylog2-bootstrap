@@ -34,9 +34,9 @@ do
   folder=`echo $tar | sed 's/.tar.gz//; s!.*/!!'`
   if echo $folder | grep -q 'server'
   then
-    sudo mv -f $folder ../server
+    sudo ln -sf src/$folder ../server
   else
-    sudo mv -f $folder ../web
+    sudo ln -sf src/$folder ../web
   fi
 done
 
