@@ -23,12 +23,12 @@ cd $graylog2_base/src
 
 sudo wget --no-check-certificate $release_src/graylog2-server/$graylog2_server -O $graylog2_server
 sudo tar -xvf $graylog2_server
-folder=`echo $graylog2_server | sed 's/.tar.gz//; s!.*/!!'`
+folder=`echo $graylog2_server | sed 's/.tar.gz//'`
 sudo ln -sf $graylog2_base/src/$folder $graylog2_base/server
 
 sudo wget --no-check-certificate $release_src/graylog2-web-interface/$graylog2_web_interface -O $graylog2_web_interface
 sudo tar -xvf $graylog2_web_interface
-folder=`echo $graylog2_web_interface | sed 's/.tar.gz//; s!.*/!!'`
+folder=`echo $graylog2_web_interface | sed 's/.tar.gz//'`
 sudo ln -sf $graylog2_base/src/$folder $graylog2_base/web
 
 sudo gem install rubygems-update
@@ -48,7 +48,7 @@ cd $graylog2_base/web
 
 sudo bundle install
 
-sudo sed -e "s/password: yourpass/password: /" -i config/database.yml
+sudo sed -e "s/password: yourpass/password:/" -i config/database.yml
 fqdn=`hostname --fqdn`
 sudo sed -e "s/external_hostname: \"your-graylog2.example.org\"/external_hostname: \"$fqdn\"/" -i config/general.yml
 
