@@ -1,1 +1,3 @@
-Hello World.
+Installs and configures Graylog2 (server & web interface).
+
+Only supports Ubuntu Lucid (10.04 LTS).
